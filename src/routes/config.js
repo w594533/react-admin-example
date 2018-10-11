@@ -44,6 +44,42 @@ export default {
 				}
 			]
 		},
+		{
+			key: '/form',
+			title: '表单',
+			icon: 'form',
+			subs: [
+				{
+					key: '/form/basic-form',
+					title: '基础表单',
+					file: 'form/BasicForm'
+				},
+				{
+					key: '/form/step-form',
+					title: '分步表单',
+					exact: false,
+					file: 'form/StepForm/index'
+					// redirect: '/form/step-form/step1'
+					// routes: [
+					// 	{
+					// 		key: '/form/step-form',
+					// 		title: '分步表单',
+					// 		redirect: '/form/step-form/step1',
+					// 	},
+					// 	{
+					// 		key: '/form/step-form/step1',
+					// 		title: '第一步',
+					// 		file: 'form/StepForm/Step1'
+					// 	},
+					// 	{
+					// 		key: '/form/step-form/step2',
+					// 		title: '第二步',
+					// 		file: 'form/StepForm/Step2'
+					// 	}
+					// ]
+				}
+			]
+		},
 		// {
 		//     key: '/app/table', title: '表格', icon: 'copy',
 		//     subs: [

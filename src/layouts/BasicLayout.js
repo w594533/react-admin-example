@@ -20,11 +20,11 @@ class App extends Component {
 		// receiveData({a: 213}, 'auth');
 		// fetchData({funcName: 'admin', stateName: 'auth'});
 		this.getClientWidth();
-		window.onresize = () => {
-			console.log('屏幕变化了');
-			this.getClientWidth();
-			// console.log(document.body.clientWidth);
-		};
+		// window.onresize = () => {
+		// 	console.log('屏幕变化了');
+		// 	this.getClientWidth();
+		// 	// console.log(document.body.clientWidth);
+		// };
 	}
 	componentDidMount() {
 		const openNotification = () => {
@@ -78,9 +78,7 @@ class App extends Component {
 					<Content style={{ margin: '0 16px', overflow: 'initial', flex: '1 1 0' }}>
 						<Routes auth={auth} />
 					</Content>
-					<Footer style={{ textAlign: 'center' }}>
-						React-Admin ©{new Date().getFullYear()} Created by 865470087@qq.com
-					</Footer>
+					<Footer style={{ textAlign: 'center' }}>©{new Date().getFullYear()}</Footer>
 				</Layout>
 
 				{/* {
