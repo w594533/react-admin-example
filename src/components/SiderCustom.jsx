@@ -1,10 +1,6 @@
-/**
- * Created by hao.cheng on 2017/4/13.
- */
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
-import routes from '../routes/config';
 import SiderMenu from './SiderMenu';
 import isEqual from 'lodash/isEqual';
 import pathToRegexp from 'path-to-regexp';
@@ -24,7 +20,7 @@ export const getFlatMenuKeys = (menus) => {
 	}, []);
 };
 
-//获取所有匹配的菜单[/ui, /ui/buttons]
+//根据当前的链接，获取所有匹配的菜单[/ui, /ui/buttons]
 const getDefaultCollapsedSubMenus = (props, flatMenuKeys) => {
 	const { location: { pathname } } = props;
 	return urlToList(pathname).map((item) => getMenuMatches(flatMenuKeys, item)[0]).filter((item) => item);
@@ -40,7 +36,6 @@ class SiderCustom extends Component {
 		super(props);
 		//初始化加载设置选中菜单和打开菜单
 		const stateMenuOpen = SiderCustom.setMenuOpen(props);
-		console.log('stateMenuOpen', stateMenuOpen);
 		this.state = {
 			...stateMenuOpen,
 			collapsed: false,
@@ -63,12 +58,11 @@ class SiderCustom extends Component {
 		return null;
 	}
 
-	static getFlatMenuKeys = (menus = routes['menus']) => getFlatMenuKeys(menus);
+	static getFlatMenuKeys = (props) => getFlatMenuKeys(props.menus);
 
 	static setMenuOpen = (props) => {
 		const { pathname } = props.location;
-		const openKey = getDefaultCollapsedSubMenus(props, SiderCustom.getFlatMenuKeys());
-
+		const openKey = getDefaultCollapsedSubMenus(props, SiderCustom.getFlatMenuKeys(props));
 		return {
 			openKey,
 			selectedKey: openKey.length > 0 ? openKey : [ pathname ]
@@ -82,7 +76,7 @@ class SiderCustom extends Component {
 	};
 	//是否是一级菜单
 	isMainMenu = (key) => {
-		const menus = routes['menus'];
+		const menus = this.props.menus;
 		return menus.some((item) => {
 			if (key) {
 				return item.key === key || item.path === key;
@@ -92,11 +86,10 @@ class SiderCustom extends Component {
 	};
 	//二级菜单点击
 	menuClick = (e) => {
-		const { openKey } = this.state;
-		// console.log('openKey', openKey, e.key);
-		if (openKey.lastIndexOf(e.key)) {
-		}
+		const flatMenuKeys = SiderCustom.getFlatMenuKeys(this.props);
+		const openKey = urlToList(e.key).map((item) => getMenuMatches(flatMenuKeys, item)[0]).filter((item) => item);
 		this.setState({
+			openKey,
 			selectedKey: [ e.key ]
 		});
 		const { popoverHide } = this.props; // 响应式布局控制小屏幕点击菜单时隐藏菜单操作
@@ -104,9 +97,7 @@ class SiderCustom extends Component {
 	};
 	//菜单打开或者关闭的时候
 	openMenu = (openKeys) => {
-		console.log('openKeys', openKeys);
 		const moreThanOne = openKeys.filter((openKey) => this.isMainMenu(openKey)).length > 1;
-		console.log(moreThanOne);
 		this.setState({
 			openKey: moreThanOne ? [ openKeys.pop() ] : [ ...openKeys ],
 			firstHide: false
@@ -117,7 +108,7 @@ class SiderCustom extends Component {
 			<Sider trigger={null} breakpoint="lg" collapsed={this.props.collapsed} style={{ overflowY: 'auto' }}>
 				<div className="logo" />
 				<SiderMenu
-					menus={routes.menus}
+					menus={this.props.menus}
 					onClick={this.menuClick}
 					theme="dark"
 					mode="inline"

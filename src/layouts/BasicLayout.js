@@ -7,6 +7,7 @@ import { receiveData } from '@/store/action';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Routes from '@/routes';
+import routesConfigs from '@/routes/config';
 const { Content, Footer } = Layout;
 
 class App extends Component {
@@ -66,13 +67,16 @@ class App extends Component {
 			collapsed: !this.state.collapsed
 		});
 	};
+
 	render() {
 		// console.log(this.props.auth);
 		// console.log(this.props.responsive);
 		const { auth, responsive } = this.props;
 		return (
 			<Layout>
-				{!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
+				{!responsive.data.isMobile && (
+					<SiderCustom collapsed={this.state.collapsed} menus={routesConfigs.menus} />
+				)}
 				<Layout style={{ flexDirection: 'column' }}>
 					<HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
 					<Content style={{ margin: '0 16px', overflow: 'initial', flex: '1 1 0' }}>
