@@ -58,42 +58,46 @@ export default {
 					key: '/form/step-form',
 					title: '分步表单',
 					exact: false,
-					file: 'form/StepForm/index'
-					// redirect: '/form/step-form/step1'
-					// routes: [
-					// 	{
-					// 		key: '/form/step-form',
-					// 		title: '分步表单',
-					// 		redirect: '/form/step-form/step1',
-					// 	},
-					// 	{
-					// 		key: '/form/step-form/step1',
-					// 		title: '第一步',
-					// 		file: 'form/StepForm/Step1'
-					// 	},
-					// 	{
-					// 		key: '/form/step-form/step2',
-					// 		title: '第二步',
-					// 		file: 'form/StepForm/Step2'
-					// 	}
-					// ]
+					file: 'form/StepForm/index',
+					hideChildrenInMenu: true,
+					subs: [
+						{
+							key: '/form/step-form/step1',
+							title: '第一步',
+							file: 'form/StepForm/Step1'
+						},
+						{
+							key: '/form/step-form/step2',
+							title: '第二步',
+							file: 'form/StepForm/Step2'
+						}
+					]
 				}
 			]
 		},
-		// {
-		//     key: '/app/table', title: '表格', icon: 'copy',
-		//     subs: [
-		//         { key: '/app/table/basicTable', title: '基础表格', component: 'BasicTable', file: ''},
-		//         { key: '/app/table/advancedTable', title: '高级表格', component: 'AdvancedTable', file: ''},
-		//         { key: '/app/table/asynchronousTable', title: '异步表格', component: 'AsynchronousTable', file: ''},
-		//     ],
-		// },
-		// {
-		//     key: '/app/form', title: '表单', icon: 'edit',
-		//     subs: [
-		//         { key: '/app/form/basicForm', title: '基础表单', component: 'BasicForm', file: ''},
-		//     ],
-		// },
+		{
+			key: '/table',
+			title: '一级菜单',
+			icon: 'table',
+			subs: [
+				{
+					key: '/table/basic-table',
+					title: '二级菜单1',
+					file: 'form/BasicForm'
+				},
+				{
+					key: '/table/other-table',
+					title: '二级菜单2',
+					subs: [
+						{
+							key: '/table/other-table/first',
+							title: '三级',
+							file: 'animation/ExampleAnimations'
+						}
+					]
+				}
+			]
+		},
 		{
 			key: '/chart',
 			title: '图表',
@@ -103,13 +107,6 @@ export default {
 				{ key: '/chart/recharts', title: 'recharts', component: 'Recharts', file: 'charts/Recharts' }
 			]
 		},
-		// {
-		//     key: '/subs4', title: '页面', icon: 'switcher',
-		//     subs: [
-		//         { key: '/login', title: '登录' },
-		//         { key: '/404', title: '404' },
-		//     ],
-		// },
 		{
 			key: '/auth',
 			title: '权限管理',

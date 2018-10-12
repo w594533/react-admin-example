@@ -6,6 +6,4 @@ class BasicForms extends Component {
 	}
 }
 
-const BasicForm = Form.create()(BasicForms);
-
-export default BasicForm;
+export default BasicForms;

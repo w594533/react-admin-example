@@ -17,11 +17,19 @@ export default class CRouter extends Component {
 				/>
 			);
 		};
+		const loop = (config) => {
+			if (config.file) {
+				return route(config);
+			}
+			if (!config.hideChildrenInMenu && config.subs) {
+				return config.subs.map((item) => loop(item));
+			}
+		};
 		return (
 			<Switch>
 				{Object.keys(routesConfig).map((key) =>
 					routesConfig[key].map((r) => {
-						return r.file ? route(r) : r.subs.map((r) => route(r));
+						return loop(r);
 					})
 				)}
 				<Route component={NotFound} />
